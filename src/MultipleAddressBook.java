@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class MultipleAddressBook {
     List <Data> contacts = new ArrayList<>();
@@ -88,16 +89,18 @@ public class MultipleAddressBook {
         }
     }
 
-    public void searchContact() {
+    public void searchContactWithCity() {
         System.out.println("Enter the city you want to search: ");
-        String cityorState = input.nextLine();
-        System.out.println("Names of people who are from " + cityorState + " are: ");
-        for (index = 0; index < contacts.size(); index++) {
-            if(cityorState.equals(contacts.get(index).getCity()) || cityorState.equals(contacts.get(index).getState())) {
-                System.out.println(contacts.get(index).getFirstName());
-            } else{
-                System.out.println("No such city or state found in the book!!");
-            }
-        }
+        String city = input.nextLine();
+        System.out.println("Names of people who are from " + city + " are: ");
+        List<Data> cities = contacts.stream().filter(contacts -> city.equals(contacts.getCity())).collect(Collectors.toList());
+        System.out.println(cities);
+    }
+    public void searchContactWithState() {
+        System.out.println("Enter the state you want to search: ");
+        String state = input.nextLine();
+        System.out.println("Names of people who are from " + state + " are: ");
+        List<Data> states = contacts.stream().filter(contacts -> state.equals(contacts.getState())).collect(Collectors.toList());
+        System.out.println(states);
     }
 }

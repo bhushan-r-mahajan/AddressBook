@@ -41,8 +41,9 @@ public class AddressBook {
             System.out.println("3. Delete Contact.");
             System.out.println("4. Add Another Address Book: ");
             System.out.println("5. See Contacts: ");
-            System.out.println("6. Search Contacts with Same State/City: ");
-            System.out.println("7. Exit");
+            System.out.println("6. Search Contacts with Same City: ");
+            System.out.println("7. Search Contacts with Same State: ");
+            System.out.println("8. Exit");
 
             int choice = input.nextInt();
             switch (choice) {
@@ -63,9 +64,11 @@ public class AddressBook {
                     AddressBookName.get(bookNumber).printContacts();
                     break;
                 }
-                case 6: AddressBookName.get(bookNumber).searchContact();
+                case 6: AddressBookName.get(bookNumber).searchContactWithCity();
                     break;
-                case 7: System.exit(0);
+                case 7: AddressBookName.get(bookNumber).searchContactWithState();
+                    break;
+                case 8: System.exit(0);
             }
         }
     }
