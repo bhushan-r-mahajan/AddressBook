@@ -1,8 +1,9 @@
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class AddressBook {
-    ArrayList<MultipleAddressBook> AddressBookName = new ArrayList<>();
+    List<MultipleAddressBook> AddressBookName = new ArrayList<>();
     Scanner input = new Scanner(System.in);
     int bookNumber = 0;
     String name;

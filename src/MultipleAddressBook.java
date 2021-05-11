@@ -95,6 +95,7 @@ public class MultipleAddressBook {
         System.out.println("Names of people who are from " + city + " are: ");
         List<Data> cities = contacts.stream().filter(contacts -> city.equals(contacts.getCity())).collect(Collectors.toList());
         System.out.println(cities);
+        System.out.println("Number of People form " + city + " are: "+ cities.stream().count());
     }
     public void searchContactWithState() {
         System.out.println("Enter the state you want to search: ");
@@ -102,5 +103,6 @@ public class MultipleAddressBook {
         System.out.println("Names of people who are from " + state + " are: ");
         List<Data> states = contacts.stream().filter(contacts -> state.equals(contacts.getState())).collect(Collectors.toList());
         System.out.println(states);
+        System.out.println("Number of People form " + state + " are: "+ states.stream().count());
     }
 }
