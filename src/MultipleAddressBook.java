@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -93,15 +94,15 @@ public class MultipleAddressBook {
         System.out.println("Enter the city you want to search: ");
         String city = input.nextLine();
         System.out.println("Names of people who are from " + city + " are: ");
-        List<Data> cities = contacts.stream().filter(contacts -> city.equals(contacts.getCity())).collect(Collectors.toList());
+        List<Data> cities = contacts.stream().sorted(Comparator.comparing(Data::getFirstName)).filter(contacts -> city.equals(contacts.getCity())).collect(Collectors.toList());
         System.out.println(cities);
-        System.out.println("Number of People form " + city + " are: "+ cities.stream().count());
+        System.out.println("Number of People form " + city + " are: "+ (long) cities.size());
     }
     public void searchContactWithState() {
         System.out.println("Enter the state you want to search: ");
         String state = input.nextLine();
         System.out.println("Names of people who are from " + state + " are: ");
-        List<Data> states = contacts.stream().filter(contacts -> state.equals(contacts.getState())).collect(Collectors.toList());
+        List<Data> states = contacts.stream().sorted(Comparator.comparing(Data::getFirstName)).filter(contacts -> state.equals(contacts.getState())).collect(Collectors.toList());
         System.out.println(states);
         System.out.println("Number of People form " + state + " are: "+ states.stream().count());
     }

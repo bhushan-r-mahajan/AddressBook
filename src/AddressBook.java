@@ -57,8 +57,11 @@ public class AddressBook {
                     break;
                 case 3: AddressBookName.get(bookNumber).deleteContact();
                     break;
-                case 4: multipleAddressBook();
+                case 4: {
+                    input.nextLine();
+                    multipleAddressBook();
                     break;
+                }
                 case 5: {
                     System.out.println("<---- These are the AddressBooks Present ---->");
                     SelectAddressBook();
