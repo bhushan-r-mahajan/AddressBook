@@ -85,9 +85,13 @@ public class MultipleAddressBook {
         if (contacts.isEmpty()) {
             System.out.println("No Contact Found");
         }
-        for (Data showContacts : contacts) {
-            System.out.println("\n" + showContacts + "\n");
-        }
+        List<Data> sortedArray = contacts.stream().sorted(Comparator.comparing(Data::getFirstName)).collect(Collectors.toList());
+        System.out.println("\n" + sortedArray + "\n");
+    }
+
+    public void printContactsSortedByCity() {
+        List<Data> sortedArray = contacts.stream().sorted(Comparator.comparing(Data::getCity)).collect(Collectors.toList());
+        System.out.println("\n" + sortedArray + "\n");
     }
 
     public void searchContactWithCity() {

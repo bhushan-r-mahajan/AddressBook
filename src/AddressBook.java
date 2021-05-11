@@ -44,7 +44,8 @@ public class AddressBook {
             System.out.println("5. See Contacts: ");
             System.out.println("6. Search Contacts with Same City: ");
             System.out.println("7. Search Contacts with Same State: ");
-            System.out.println("8. Exit");
+            System.out.println("8. Print Contacts Sorted By City: ");
+            System.out.print("Enter Your Choice: ");
 
             int choice = input.nextInt();
             switch (choice) {
@@ -72,7 +73,9 @@ public class AddressBook {
                     break;
                 case 7: AddressBookName.get(bookNumber).searchContactWithState();
                     break;
-                case 8: System.exit(0);
+                case 8: AddressBookName.get(bookNumber).printContactsSortedByCity();
+                    break;
+                default : System.exit(0);
             }
         }
     }
