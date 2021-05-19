@@ -16,6 +16,7 @@ public class AddressBook {
     public void multipleAddressBook() {
         System.out.print("Enter the name of Address Book: ");
         name = input.nextLine();
+        input.nextLine();
         AddressBookName.add(new MultipleAddressBook(name));
         System.out.println("New Address Book Created with name: " + name);
     }
@@ -59,7 +60,6 @@ public class AddressBook {
                 case 3: AddressBookName.get(bookNumber).deleteContact();
                     break;
                 case 4: {
-                    input.nextLine();
                     multipleAddressBook();
                     break;
                 }
