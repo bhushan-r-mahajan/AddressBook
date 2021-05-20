@@ -1,3 +1,4 @@
+import com.google.gson.Gson;
 import com.opencsv.CSVWriter;
 import com.opencsv.bean.StatefulBeanToCsv;
 import com.opencsv.bean.StatefulBeanToCsvBuilder;
@@ -5,6 +6,7 @@ import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.nio.file.Files;
@@ -28,8 +30,10 @@ public class AddressBookFileIO {
         };
         io.writeDataToFile(Arrays.asList(contactsArr));
         io.writeDataToCSVFile(Arrays.asList(contactsArr));
+        io.writeDataToJSON(Arrays.asList(contactsArr));
         io.readContacts();
         io.readContactsOfCSVFile();
+        io.readContactsOfJSONFile();
     }
 
     public void writeDataToFile(List<Data> contacts) {
@@ -56,8 +60,26 @@ public class AddressBookFileIO {
         }
     }
 
+    public void writeDataToJSON(List<Data> contacts) throws IOException {
+        Gson gson = new Gson();
+        FileWriter fileWriter = new FileWriter(JSONFile);
+        gson.toJson(contacts, fileWriter);
+        fileWriter.close();
+    }
+
+    public void readContactsOfJSONFile() {
+        System.out.println("\n<----- The Content Of JSON file is ----->");
+        try {
+            Files.lines(new File("address_book.json").toPath()).forEach(System.out::println);
+            long entries = Files.lines(new File("address_book.csv").toPath()).count();
+            System.out.println("\nThe Number of entries in JSOnFile are: " + entries);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void readContacts() {
-        System.out.println("<----- The Content Of Txt file is ----->");
+        System.out.println("\n<----- The Content Of Txt file is ----->");
         try {
             Files.lines(new File("address_book.txt").toPath()).forEach(System.out::println);
             long entries = Files.lines(new File("address_book.txt").toPath()).count();
@@ -68,11 +90,11 @@ public class AddressBookFileIO {
     }
 
     public void readContactsOfCSVFile() {
-        System.out.println("<----- The Content Of CSV file is ----->");
+        System.out.println("\n<----- The Content Of CSV file is ----->");
         try {
             Files.lines(new File("address_book.csv").toPath()).forEach(System.out::println);
             long entries = Files.lines(new File("address_book.csv").toPath()).count();
-            System.out.println("The Number of entries in CSVFile are: " + entries);
+            System.out.println("\nThe Number of entries in CSVFile are: " + entries);
         } catch (IOException e) {
             e.printStackTrace();
         }
