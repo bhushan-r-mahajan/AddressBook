@@ -1,12 +1,14 @@
 @SuppressWarnings("ALL")
 
 public class Data {
+    private int id;
     private String firstName;
     private String lastName;
     private String address;
     private String city;
     private String state;
     private String zip;
+    private int zipp;
     private String phoneNumber;
     private String emailId;
 
@@ -19,6 +21,18 @@ public class Data {
         this.zip = zip;
         this.phoneNumber = phoneNumber;
         this.emailId = emailId;
+    }
+
+    public Data(int id, String firstName, String lastName, String address, String city, String state, int zipp, String phone, String email) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.city = city;
+        this.state = state;
+        this.zipp = zipp;
+        this.phoneNumber = phone;
+        this.emailId = email;
     }
 
     public String getFirstName() {
