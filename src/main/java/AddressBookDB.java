@@ -43,6 +43,7 @@ public class AddressBookDB {
                 int zipp = resultSet.getInt("zip");
                 String phone = resultSet.getString("phone_number");
                 String email = resultSet.getString("email");
+                Date addDate = resultSet.getDate("add_date");
                 contactDetails.add(new Data(id, firstName, lastName, address, city, state, zipp, phone, email));
             }
         } catch (SQLException e) {
@@ -75,5 +76,24 @@ public class AddressBookDB {
     public List<Data> getContactDetailsAccordingToCity(String city) throws CustomException {
         String sql = String.format("select * from contact_details where city = '%s'", city);
         return this.getDataFromDBWhenSQLGiven(sql);
+    }
+
+    public Data addNewContactToDB(String firstName, String lastName, String address, String city, String state, int zipp, String phone, String email, LocalDate addDate) throws CustomException {
+        int id = -1;
+        Data data;
+        String sql = String.format("insert into contact_details (first_name, last_name, address, city, state, zip, phone_number, email, add_date) values " +
+                "('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')", firstName, lastName, address, city, state, zipp, phone, email, addDate);
+        try (Connection connection = this.getConnection()) {
+            Statement statement = connection.createStatement();
+            int rowAffected = statement.executeUpdate(sql, statement.RETURN_GENERATED_KEYS);
+            if (rowAffected == 1) {
+                ResultSet resultSet = statement.getGeneratedKeys();
+                if(resultSet.next()) id = resultSet.getInt(1);
+            }
+            data = new Data(id, firstName, lastName, address, city, state, zipp, phone, email, addDate);
+        } catch (SQLException e) {
+            throw new CustomException("Query Failed!!");
+        }
+        return data;
     }
 }

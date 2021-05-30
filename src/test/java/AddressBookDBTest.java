@@ -39,4 +39,13 @@ public class AddressBookDBTest {
         contactDetails = addressBookDB.getContactDetailsAccordingToCity("nashik");
         Assertions.assertEquals(2, contactDetails.size());
     }
+
+    @Test
+    void givenANewEntry_WhenQueryExecuted_ShouldAddNewContactInDB() throws CustomException {
+        AddressBookDB addressBookDB = new AddressBookDB();
+        List<Data> contactDetails;
+        addressBookDB.addNewContactToDB("bhushan", "mahajan", "ayodhya colony", "pune",  "maharashtra", 422014, "6666666666", "bhushan@gmail.com", LocalDate.now());
+        contactDetails = addressBookDB.getAllDetailsFromTable();
+        Assertions.assertEquals(4, contactDetails.size());
+    }
 }

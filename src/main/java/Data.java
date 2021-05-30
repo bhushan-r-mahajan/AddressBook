@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.util.Date;
+
 @SuppressWarnings("ALL")
 
 public class Data {
@@ -11,6 +14,7 @@ public class Data {
     private int zipp;
     private String phoneNumber;
     private String emailId;
+    private LocalDate addDate;
 
     public Data(String firstName, String lastName, String address, String city, String state, String zip, String phoneNumber, String emailId) {
         this.firstName = firstName;
@@ -33,6 +37,20 @@ public class Data {
         this.zipp = zipp;
         this.phoneNumber = phone;
         this.emailId = email;
+    }
+
+    public Data(int id, String firstName, String lastName, String address, String city, String state, int zipp, String phone, String email, LocalDate addDate) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.city = city;
+        this.state = state;
+        this.zipp = zipp;
+        this.phoneNumber = phone;
+        this.emailId = email;
+        this.addDate = addDate;
+
     }
 
     public String getFirstName() {
