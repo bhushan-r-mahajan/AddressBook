@@ -18,30 +18,42 @@ public class AddressBookDB {
         return connection;
     }
 
-    public List<Data> getAllDetailsFromTable() throws CustomException {
-        String sql = "select * from contact_details;";
-        return this.getDataFromDBWhenSQLGiven(sql);
+    private List<Data> getDataFromDBWhenSQLGiven(String sql) throws CustomException {
+        List<Data> contactDetails;
+        try (Connection connection = this.getConnection()) {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            contactDetails = getResultSet(resultSet);
+        } catch (SQLException e) {
+            throw new CustomException("Query Failed!!");
+        }
+        return contactDetails;
     }
 
     private List<Data> getResultSet(ResultSet resultSet) throws CustomException {
         List<Data> contactDetails = new ArrayList<>();
         try {
             while (resultSet.next()) {
-            int id = resultSet.getInt("id");
-            String firstName = resultSet.getString("first_name");
-            String lastName = resultSet.getString("last_name");
-            String address = resultSet.getString("address");
-            String city = resultSet.getString("city");
-            String state = resultSet.getString("state");
-            int zipp = resultSet.getInt("zip");
-            String phone = resultSet.getString("phone_number");
-            String email = resultSet.getString("email");
-            contactDetails.add(new Data(id, firstName, lastName, address, city, state, zipp, phone, email));
+                int id = resultSet.getInt("id");
+                String firstName = resultSet.getString("first_name");
+                String lastName = resultSet.getString("last_name");
+                String address = resultSet.getString("address");
+                String city = resultSet.getString("city");
+                String state = resultSet.getString("state");
+                int zipp = resultSet.getInt("zip");
+                String phone = resultSet.getString("phone_number");
+                String email = resultSet.getString("email");
+                contactDetails.add(new Data(id, firstName, lastName, address, city, state, zipp, phone, email));
+            }
+        } catch (SQLException e) {
+            throw new CustomException("Query Failed!!");
         }
-    } catch (SQLException e) {
-        throw new CustomException("Query Failed!!");
-    }
         return contactDetails;
+    }
+
+    public List<Data> getAllDetailsFromTable() throws CustomException {
+        String sql = "select * from contact_details;";
+        return this.getDataFromDBWhenSQLGiven(sql);
     }
 
     public int updateContactDetailsInDB(String firstName, String phone) throws CustomException {
@@ -60,15 +72,8 @@ public class AddressBookDB {
         return this.getDataFromDBWhenSQLGiven(sql);
     }
 
-    private List<Data> getDataFromDBWhenSQLGiven(String sql) throws CustomException {
-        List<Data> contactDetails;
-        try (Connection connection = this.getConnection()) {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(sql);
-            contactDetails = getResultSet(resultSet);
-        } catch (SQLException e) {
-            throw new CustomException("Query Failed!!");
-        }
-        return contactDetails;
+    public List<Data> getContactDetailsAccordingToCity(String city) throws CustomException {
+        String sql = String.format("select * from contact_details where city = '%s'", city);
+        return this.getDataFromDBWhenSQLGiven(sql);
     }
 }

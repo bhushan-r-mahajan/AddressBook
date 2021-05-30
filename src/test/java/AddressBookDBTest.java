@@ -31,4 +31,12 @@ public class AddressBookDBTest {
         contactDetails = addressBookDB.getContactDetailsAccordingToDate(from, to);
         Assertions.assertEquals(3, contactDetails.size());
     }
+
+    @Test
+    void givenCityNaME_WhenFound_ShouldReturnNoOfContactsFromGivenCity() throws CustomException {
+        AddressBookDB addressBookDB = new AddressBookDB();
+        List<Data> contactDetails;
+        contactDetails = addressBookDB.getContactDetailsAccordingToCity("nashik");
+        Assertions.assertEquals(2, contactDetails.size());
+    }
 }
