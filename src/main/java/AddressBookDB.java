@@ -1,9 +1,13 @@
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class AddressBookDB {
+
+    List<Data> contactDataList = new ArrayList<>();
 
     private Connection getConnection() throws CustomException {
         String jdbcUrl = "jdbc:mysql://localhost:3306/address_book?useSSL=false";
@@ -95,5 +99,31 @@ public class AddressBookDB {
             throw new CustomException("Query Failed!!");
         }
         return data;
+    }
+
+    public void addMultipleContacts(List<Data> contactData) {
+
+        Map<Integer, Boolean> employeeMultiThread = new HashMap<>();
+        contactData.forEach(data -> {
+            Runnable task = () -> {
+                employeeMultiThread.put(data.hashCode(), false);
+                System.out.println("Contact Being Added is: " + Thread.currentThread().getName());
+                try {
+                    this.addNewContactToDB(data.getFirstName(), data.getLastName(), data.getAddress(), data.getCity(), data.getState(), data.getZipp(), data.getPhoneNumber(), data.getEmailId(), data.getAddDate());
+                } catch (CustomException e) { }
+                employeeMultiThread.put(data.hashCode(), true);
+                System.out.println("Contact Added: " + Thread.currentThread().getName());
+            };
+            Thread thread = new Thread(task, data.getFirstName());
+            thread.start();
+        });
+        while (employeeMultiThread.containsValue(false)) {
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println(this.contactDataList);
     }
 }

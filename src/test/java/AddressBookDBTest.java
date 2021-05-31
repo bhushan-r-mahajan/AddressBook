@@ -1,7 +1,10 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 
 public class AddressBookDBTest {
@@ -47,5 +50,25 @@ public class AddressBookDBTest {
         addressBookDB.addNewContactToDB("bhushan", "mahajan", "ayodhya colony", "pune",  "maharashtra", 422014, "6666666666", "bhushan@gmail.com", LocalDate.now());
         contactDetails = addressBookDB.getAllDetailsFromTable();
         Assertions.assertEquals(4, contactDetails.size());
+    }
+
+    @Test
+    void givenMultipleEmployees_WhenAddedToDB_ShouldMatchCount() throws CustomException {
+        AddressBookDB addressBookDB = new AddressBookDB();
+        List<Data> contactDataList;
+        Data[]  contactArray = {
+                new Data(0, "bhushan", "mahajan", "ayodhya colony", "pune",  "maharashtra", 422014, "6666666666", "bhushan@gmail.com", LocalDate.now()),
+                new Data(0, "bhushan", "mahajan", "ayodhya colony", "pune",  "maharashtra", 422014, "6666666666", "bhushan@gmail.com", LocalDate.now()),
+                new Data(0, "bhushan", "mahajan", "ayodhya colony", "pune",  "maharashtra", 422014, "6666666666", "bhushan@gmail.com", LocalDate.now()),
+                new Data(0, "bhushan", "mahajan", "ayodhya colony", "pune",  "maharashtra", 422014, "6666666666", "bhushan@gmail.com", LocalDate.now()),
+                new Data(0, "bhushan", "mahajan", "ayodhya colony", "pune",  "maharashtra", 422014, "6666666666", "bhushan@gmail.com", LocalDate.now()),
+                new Data(0, "bhushan", "mahajan", "ayodhya colony", "pune",  "maharashtra", 422014, "6666666666", "bhushan@gmail.com", LocalDate.now()),
+        };
+        Instant startThread = Instant.now();
+        addressBookDB.addMultipleContacts(Arrays.asList(contactArray));
+        Instant endThread = Instant.now();
+        System.out.println("Time Taken to Execute : " + Duration.between(startThread, endThread));
+        contactDataList = addressBookDB.getAllDetailsFromTable();
+        Assertions.assertEquals(7, contactDataList.size());
     }
 }

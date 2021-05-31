@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Objects;
 
 @SuppressWarnings("ALL")
 
@@ -97,6 +98,10 @@ public class Data {
         return zip;
     }
 
+    public int getZipp() {
+        return zipp;
+    }
+
     public void setZip(String zip) {
         this.zip = zip;
     }
@@ -117,6 +122,10 @@ public class Data {
         this.emailId = emailId;
     }
 
+    public LocalDate getAddDate() {
+        return addDate;
+    }
+
     @Override
     public String toString() {
         return "<----Contact of " + firstName + " is---->\n" +
@@ -128,5 +137,10 @@ public class Data {
                 "Zip: " + zip + '\n' +
                 "PhoneNumber: " + phoneNumber + '\n' +
                 "EmailId: " + emailId + '\n';
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstName, lastName, address, city, state, zip, zipp, phoneNumber, emailId, addDate);
     }
 }
