@@ -11,4 +11,8 @@ public class ContactRestAPI {
     public long countEntries() {
         return this.dataList.size();
     }
+
+    public void addEmployeeToList(ContactData contactData) {
+        this.dataList.add(contactData);
+    }
 }
