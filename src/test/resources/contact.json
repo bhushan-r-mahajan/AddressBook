@@ -9,6 +9,36 @@
       "state": "maharashtra",
       "zip": 422013,
       "phonenumber": "3333333333"
+    },
+    {
+      "id": 2,
+      "firstname": "vijay",
+      "lastname": "darade",
+      "address": "gangapur rd",
+      "city": "nashik",
+      "state": "maharashtra",
+      "zip": 422013,
+      "emailId": "vijay@gmail.com"
+    },
+    {
+      "id": 3,
+      "firstname": "harshal",
+      "lastname": "darade",
+      "address": "gangapur rd",
+      "city": "nashik",
+      "state": "maharashtra",
+      "zip": 422013,
+      "emailId": "harshal@gmail.com"
+    },
+    {
+      "id": 4,
+      "firstname": "shashank",
+      "lastname": "adka",
+      "address": "gangapur rd",
+      "city": "nashik",
+      "state": "maharashtra",
+      "zip": 422013,
+      "emailId": "shashank@gmail.com"
     }
   ]
 }
