@@ -85,24 +85,44 @@ public class AddressBookDB {
     public Data addNewContactToDB(String firstName, String lastName, String address, String city, String state, int zipp, String phone, String email, LocalDate addDate) throws CustomException {
         int id = -1;
         Data data;
+        Connection connection = null;
         String sql = String.format("insert into contact_details (first_name, last_name, address, city, state, zip, phone_number, email, add_date) values " +
                 "('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')", firstName, lastName, address, city, state, zipp, phone, email, addDate);
-        try (Connection connection = this.getConnection()) {
+        try {
+            connection = this.getConnection();
+            connection.setAutoCommit(false);
+        } catch (SQLException e) {
+            throw new CustomException("Failed!!");
+        }
+        try {
             Statement statement = connection.createStatement();
             int rowAffected = statement.executeUpdate(sql, statement.RETURN_GENERATED_KEYS);
             if (rowAffected == 1) {
                 ResultSet resultSet = statement.getGeneratedKeys();
-                if(resultSet.next()) id = resultSet.getInt(1);
+                if (resultSet.next()) id = resultSet.getInt(1);
             }
             data = new Data(id, firstName, lastName, address, city, state, zipp, phone, email, addDate);
         } catch (SQLException e) {
+            try {
+                connection.rollback();
+            } catch (SQLException ex) {
+                throw new CustomException("Failed!!");
+            }
             throw new CustomException("Query Failed!!");
+        } finally {
+            if(connection != null) {
+                try {
+                    connection.commit();
+                    connection.close();
+                } catch (SQLException e) {
+                    throw new CustomException("Failed!!");
+                }
+            }
         }
         return data;
     }
 
     public void addMultipleContacts(List<Data> contactData) {
-
         Map<Integer, Boolean> employeeMultiThread = new HashMap<>();
         contactData.forEach(data -> {
             Runnable task = () -> {

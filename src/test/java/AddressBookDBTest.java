@@ -15,13 +15,13 @@ public class AddressBookDBTest {
         AddressBookDB addressBookDB = new AddressBookDB();
         contactDetails = addressBookDB.getAllDetailsFromTable();
         System.out.println("The Number of Entries in DataBase are = " + contactDetails.size());
-        Assertions.assertEquals(3, contactDetails.size());
+        Assertions.assertEquals(1, contactDetails.size());
     }
 
     @Test
     void givenNewSalary_WhenUpdated_ShouldPassTestAndBeInSync() throws CustomException {
         AddressBookDB addressBookDB = new AddressBookDB();
-        int result = addressBookDB.updateContactDetailsInDB("amol", "2222222222");
+        int result = addressBookDB.updateContactDetailsInDB("vijay", "2222222222");
         Assertions.assertEquals(1, result);
     }
 
@@ -32,7 +32,7 @@ public class AddressBookDBTest {
         LocalDate from = LocalDate.of(2020, 01, 01);
         LocalDate to = LocalDate.now();
         contactDetails = addressBookDB.getContactDetailsAccordingToDate(from, to);
-        Assertions.assertEquals(3, contactDetails.size());
+        Assertions.assertEquals(1, contactDetails.size());
     }
 
     @Test
@@ -40,7 +40,7 @@ public class AddressBookDBTest {
         AddressBookDB addressBookDB = new AddressBookDB();
         List<Data> contactDetails;
         contactDetails = addressBookDB.getContactDetailsAccordingToCity("nashik");
-        Assertions.assertEquals(2, contactDetails.size());
+        Assertions.assertEquals(1, contactDetails.size());
     }
 
     @Test
@@ -49,7 +49,7 @@ public class AddressBookDBTest {
         List<Data> contactDetails;
         addressBookDB.addNewContactToDB("bhushan", "mahajan", "ayodhya colony", "pune",  "maharashtra", 422014, "6666666666", "bhushan@gmail.com", LocalDate.now());
         contactDetails = addressBookDB.getAllDetailsFromTable();
-        Assertions.assertEquals(4, contactDetails.size());
+        Assertions.assertEquals(2, contactDetails.size());
     }
 
     @Test

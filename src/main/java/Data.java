@@ -141,6 +141,6 @@ public class Data {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, address, city, state, zip, zipp, phoneNumber, emailId, addDate);
+        return Objects.hash(id, firstName, lastName, address, city, state, zipp, phoneNumber, emailId, addDate);
     }
 }
