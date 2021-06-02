@@ -15,4 +15,16 @@ public class ContactRestAPI {
     public void addEmployeeToList(ContactData contactData) {
         this.dataList.add(contactData);
     }
+
+    public ContactData getContact(String name) {
+        return this.dataList.stream().filter(dataItem -> dataItem.firstname.equals(name)).findFirst().orElse(null);
+    }
+
+    public void updateContact(String name, String phonenumber) {
+        ContactData contactData = this.getContact(name);
+        if(contactData != null) {
+            contactData.phonenumber = phonenumber;
+        }
+    }
+
 }
